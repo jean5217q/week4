@@ -1,7 +1,7 @@
 //Assignment 1: Callback Function
 function delayedResult(n1, n2, delayTime, callback){
   setTimeout(function(){
-    return callback(n1+n2)
+    callback(n1+n2)
   },delayTime)
 }
 
@@ -32,13 +32,22 @@ function render(data){
   data.forEach(el=>{
     let formatDesc = el.description.split('')
     formatDesc = formatDesc.slice(0,formatDesc.length-1).join('')
-    let markup=`
-    <li>
-      <div class="name">${el.name}</div>
-      <div class="description">${formatDesc}</div>
-      <div class="price">${formatPrice(el.price)}<span>元</span></div>
-    </li>` 
-    product.insertAdjacentHTML('beforeend',markup) 
+
+    let list = document.createElement('li')
+    let name = document.createElement('div')
+    name.className = 'name'
+    name.textContent = el.name
+    let description = document.createElement('div')
+    description.className = 'description'
+    description.textContent = formatDesc
+    let price = document.createElement('div')
+    price.className = 'price'
+    price.textContent = formatPrice(el.price)+'元'
+
+    product.appendChild(list)
+    list.appendChild(name)
+    list.appendChild(description)
+    list.appendChild(price)
   }) 
 }
 
